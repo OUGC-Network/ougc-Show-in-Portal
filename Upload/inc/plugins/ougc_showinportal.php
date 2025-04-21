@@ -46,6 +46,7 @@ define('ougc\ShowInPortal\ROOT', MYBB_ROOT . 'inc/plugins/ougc/ShowInPortal');
 // Plugin Settings
 define('ougc\ShowInPortal\Core\SETTINGS', [
     //'allowedGroups' => '-1'
+    'myAlertsVersion' => '2.1.0'
 ]);
 
 // PLUGINLIBRARY

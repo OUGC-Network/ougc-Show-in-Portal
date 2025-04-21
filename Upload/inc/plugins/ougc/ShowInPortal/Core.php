@@ -136,7 +136,7 @@ function getSetting(string $settingKey = '')
 {
     global $mybb;
 
-    return SETTINGS[$settingKey] ?? (string)$mybb->settings['ougc_showinportal_' . $settingKey];
+    return SETTINGS[$settingKey] ?? ($mybb->settings['ougc_showinportal_' . $settingKey] ?? false);
 }
 
 function getTemplate(string $templateName, bool $enableHTMLComments = true): string

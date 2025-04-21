@@ -81,14 +81,14 @@ function admin_config_settings_change()
 
 
 // Moderator Tools
-function admin_formcontainer_end()
+function admin_formcontainer_end(array &$current_hook_arguments): array
 {
     global $mybb, $run_module, $form_container, $lang;
 
     if (!($run_module == 'config' && !empty($form_container->_title) && !empty($lang->thread_moderation) && $form_container->_title == $lang->thread_moderation && $mybb->get_input(
             'action'
         ) != 'add_post_tool' && $mybb->get_input('action') != 'edit_post_tool')) {
-        return;
+        return $current_hook_arguments;
     }
 
     global $form;
@@ -112,6 +112,8 @@ function admin_formcontainer_end()
         ], $mybb->get_input('showinportal', MyBB::INPUT_INT), ['id' => 'showinportal']),
         'showinportal'
     );
+
+    return $current_hook_arguments;
 }
 
 // Save moderator tools input
