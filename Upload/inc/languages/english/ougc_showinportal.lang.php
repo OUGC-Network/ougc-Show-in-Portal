@@ -2,7 +2,7 @@
 
 /***************************************************************************
  *
- *    OUGC Show in Portal plugin (/inc/languages/english/ougc_showinportal.lang.php)
+ *    ougc Show in Portal plugin (/inc/languages/english/ougc_showinportal.lang.php)
  *    Author: Omar Gonzalez
  *    Copyright: © 2012 Omar Gonzalez
  *
@@ -27,7 +27,7 @@
  ****************************************************************************/
 
 $l = [
-    'ougcShowInPortal' => 'OUGC Show in Portal',
+    'ougcShowInPortal' => 'ougc Show in Portal',
 
     'ougc_showinportal_input' => 'Show In Portal',
     'ougc_showinportal_input_desc' => 'display this thread in the portal',

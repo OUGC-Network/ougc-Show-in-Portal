@@ -2,7 +2,7 @@
 
 /***************************************************************************
  *
- *    OUGC Show in Portal plugin (/inc/plugins/ougc_showinportal.php)
+ *    ougc Show in Portal plugin (/inc/plugins/ougc_showinportal.php)
  *    Author: Omar Gonzalez
  *    Copyright: © 2012 Omar Gonzalez
  *

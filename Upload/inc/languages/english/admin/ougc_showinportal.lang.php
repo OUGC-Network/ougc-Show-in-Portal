@@ -2,7 +2,7 @@
 
 /***************************************************************************
  *
- *    OUGC Show in Portal plugin (/inc/languages/english/admin/ougc_showinportal.lang.php)
+ *    ougc Show in Portal plugin (/inc/languages/english/admin/ougc_showinportal.lang.php)
  *    Author: Omar Gonzalez
  *    Copyright: © 2012 Omar Gonzalez
  *
@@ -27,7 +27,7 @@
  ****************************************************************************/
 
 $l = [
-    'ougcShowInPortal' => 'OUGC Show in Portal',
+    'ougcShowInPortal' => 'ougc Show in Portal',
     'ougcShowInPortalDesc' => 'Allow moderators to choose what threads to display in the portal.',
     'setting_group_ougc_showinportal' => 'Show In Portal',
     'setting_group_ougc_showinportal_desc' => 'Manage how threads are displayed in the portal.',

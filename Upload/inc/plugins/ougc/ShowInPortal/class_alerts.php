@@ -2,7 +2,7 @@
 
 /***************************************************************************
  *
- *    OUGC Show in Portal plugin (/inc/plugins/ougc/ShowInPortal/class_alerts.php)
+ *    ougc Show in Portal plugin (/inc/plugins/ougc/ShowInPortal/class_alerts.php)
  *    Author: Omar Gonzalez
  *    Copyright: © 2012 Omar Gonzalez
  *

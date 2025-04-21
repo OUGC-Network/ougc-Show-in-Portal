@@ -4,7 +4,7 @@
     </a>
 </p>
 
-<h3 align="center">OUGC Show In Portal</h3>
+<h3 align="center">ougc Show In Portal</h3>
 
 <div align="center">
 

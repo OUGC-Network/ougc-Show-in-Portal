@@ -2,7 +2,7 @@
 
 /***************************************************************************
  *
- *    OUGC Show in Portal plugin (/inc/plugins/ougc/ShowInPortal/Admin.php)
+ *    ougc Show in Portal plugin (/inc/plugins/ougc/ShowInPortal/Admin.php)
  *    Author: Omar Gonzalez
  *    Copyright: © 2012 Omar Gonzalez
  *
@@ -52,7 +52,7 @@ function pluginInfo(): array
     loadLanguage();
 
     return [
-        'name' => 'OUGC Show in Portal',
+        'name' => 'ougc Show in Portal',
         'description' => $lang->ougcShowInPortalDesc,
         'website' => 'https://ougc.network',
         'author' => 'Omar G.',
@@ -128,7 +128,7 @@ function pluginActivate(): bool
     }
 
     if ($templates) {
-        $PL->templates('ougcshowinportal', 'OUGC Show In Portal', $templates);
+        $PL->templates('ougcshowinportal', 'ougc Show In Portal', $templates);
     }
 
     if (class_exists('MybbStuff_MyAlerts_AlertTypeManager')) {
