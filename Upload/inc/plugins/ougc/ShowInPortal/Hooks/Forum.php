@@ -41,6 +41,7 @@ use function ougc\ShowInPortal\Core\cutOffMessage;
 use function ougc\ShowInPortal\Core\isModerator;
 use function ougc\ShowInPortal\Core\getTemplate;
 use function ougc\ShowInPortal\Core\getSetting;
+use function ougc\ShowInPortal\Core\moderationControlExecute;
 use function ougc\ShowInPortal\Core\myAlertsInitiate;
 use function ougc\ShowInPortal\Core\updateThreadStatus;
 
@@ -171,82 +172,6 @@ function newreply_end()
 function editpost_end()
 {
     newthread_end();
-}
-
-function moderation_start()
-{
-    global $mybb;
-
-    if (!in_array($mybb->get_input('action'), array('showinportal', 'multishowinportal', 'multiunshowinportal'))) {
-        if (in_array(
-                $mybb->get_input('action'),
-                array(
-                    'reports',
-                    'allreports',
-                    'getip',
-                    'cancel_delayedmoderation',
-                    'delayedmoderation',
-                    'do_delayedmoderation',
-                    'openclosethread',
-                    'stick',
-                    'removeredirects',
-                    'deletethread',
-                    'do_deletethread',
-                    'deletepoll',
-                    'do_deletepoll',
-                    'approvethread',
-                    'unapprovethread',
-                    'deleteposts',
-                    'do_deleteposts',
-                    'mergeposts',
-                    'do_mergeposts',
-                    'move',
-                    'do_move',
-                    'threadnotes',
-                    'do_threadnotes',
-                    'merge',
-                    'do_merge',
-                    'split',
-                    'do_split',
-                    'removesubscriptions',
-                    'multideletethreads',
-                    'do_multideletethreads',
-                    'multiopenthreads',
-                    'multiclosethreads',
-                    'multiapprovethreads',
-                    'multiunapprovethreads',
-                    'multistickthreads',
-                    'multiunstickthreads',
-                    'multimovethreads',
-                    'do_multimovethreads',
-                    'multideleteposts',
-                    'do_multideleteposts',
-                    'multimergeposts',
-                    'do_multimergeposts',
-                    'multisplitposts',
-                    'do_multisplitposts',
-                    'multiapproveposts',
-                    'multiunapproveposts'
-                )
-            ) || $mybb->get_input('action', MyBB::INPUT_INT) < 1) {
-            return;
-        }
-
-        control_db(
-            'function simple_select($table, $fields = "*", $conditions = "", $options = array())
-        {
-            static $done = false;
-
-            if (!$done && $table == "modtools" && substr($conditions, 0, 4) == "tid=" && empty($options)) {
-                $done = true;
-
-                \ougc\ShowInPortal\Core\moderationControl();
-            }
-
-            return parent::simple_select($table, $fields, $conditions, $options);
-        }'
-        );
-    }
 }
 
 function datahandler_post_insert_thread(&$dh)
@@ -445,4 +370,13 @@ function myalerts_register_client_alert_formatters(): bool
     }
 
     return true;
+}
+
+function class_custommoderation_execute_thread_moderation_start(array &$hookArguments): array
+{
+    if (isset($hookArguments['thread_options']['showinportal'])) {
+        moderationControlExecute((array)$hookArguments['tids'], (int)$hookArguments['thread_options']['showinportal']);
+    }
+
+    return $hookArguments;
 }

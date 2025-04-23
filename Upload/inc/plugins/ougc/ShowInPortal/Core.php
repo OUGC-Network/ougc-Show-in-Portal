@@ -204,29 +204,6 @@ function cutOffMessage(string &$message, int $fid, int $tid)
     $message = $msg[0] . $lang->sprintf($lang->{$lang_var}, $settings['bburl'], get_thread_link($tid));
 }
 
-function moderationControl(): bool
-{
-    global $custommod;
-
-    if (!is_object($custommod)) {
-        return false;
-    }
-
-    control_object(
-        $custommod,
-        'function execute_thread_moderation($thread_options = array(), $tids = array())
-        {
-            if (!$thread_options["deletethread"]) {
-                \ougc\ShowInPortal\Core\moderationControlExecute($tids, $thread_options["showinportal"]);
-            }
-
-            return parent::execute_thread_moderation($thread_options, $tids);
-        }'
-    );
-
-    return true;
-}
-
 function moderationControlExecute(array $threadIDs, int $inputValue = INPUT_SHOW): bool
 {
     switch ($inputValue) {
