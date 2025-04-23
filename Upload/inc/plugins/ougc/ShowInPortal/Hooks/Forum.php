@@ -270,7 +270,7 @@ function datahandler_post_insert_post(PostDataHandler &$dataHandler): PostDataHa
 
     $threadData = get_thread($dataHandler->data['tid']);
 
-    if ($plugins->current_hook == 'datahandler_post_update') {
+    if ($plugins->current_hook === 'datahandler_post_update') {
         if (THIS_SCRIPT === 'xmlhttp.php' || empty($dataHandler->first_post)) {
             return $dataHandler;
         }
@@ -280,9 +280,13 @@ function datahandler_post_insert_post(PostDataHandler &$dataHandler): PostDataHa
         $options = $dataHandler->data['modoptions'];
     }
 
+    if (!isset($options['showinportal'])) {
+        return $dataHandler;
+    }
+
     $inputValue = STATUS_HIDE;
 
-    if (isset($options['showinportal']) && (int)$options['showinportal'] === STATUS_SHOW) {
+    if ((int)$options['showinportal'] === STATUS_SHOW) {
         $inputValue = STATUS_SHOW;
     }
 

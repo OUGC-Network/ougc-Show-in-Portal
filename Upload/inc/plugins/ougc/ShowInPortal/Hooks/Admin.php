@@ -95,10 +95,10 @@ function admin_formcontainer_end(array &$current_hook_arguments): array
 
     loadLanguage();
 
-    if ($mybb->get_input('action') != 'add_thread_tool' && !isset($mybb->input['showinportal'])) {
+    if ($mybb->get_input('action') !== 'add_thread_tool' && !isset($mybb->input['showinportal'])) {
         global $thread_options;
 
-        $mybb->input['showinportal'] = (int)$thread_options['showinportal'];
+        $mybb->input['showinportal'] = (int)($thread_options['showinportal'] ?? 0);
     }
 
     $form_container->output_row(

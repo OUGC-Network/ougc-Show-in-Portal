@@ -120,18 +120,14 @@ Follow the next steps in order to update your copy of this plugin.
 To display the moderation option it is required that you edit the following templates for each of
 your themes.
 
-1. Open the `editpost_postoptions` template for editing.
-2. Add `<!--OUGC_SHOWINPORTAL-->` after `{$signature}`.
-3. Save the template.
-4. Open the `newreply_modoptions` template for editing.
-5. Add `<!--OUGC_SHOWINPORTAL-->` after `{$stickoption}`.
-6. Save the template.
-7. Open the `newthread_postoptions` template for editing.
-8. Add `<!--OUGC_SHOWINPORTAL-->` after `{$disablesmilies}`.
-9. Save the template.
-10. Open the `showthread_quickreply` template for editing.
-11. Add `<!--OUGC_SHOWINPORTAL-->` after `{$closeoption}`.
-12. Save the template.
+1. Add `<!--OUGC_SHOWINPORTAL-->` after `{$signature}` in the `editpost_postoptions` template to display the checkbox
+   while editing threads.
+2. Add `<!--OUGC_SHOWINPORTAL-->` after `{$stickoption}` in the `newreply_modoptions` template to display the checkbox
+   while creating new posts (replies).
+3. Add `<!--OUGC_SHOWINPORTAL-->` after `{$disablesmilies}` in the `newthread_postoptions` template to display the
+   checkbox while creating new threads.
+4. Add `<!--OUGC_SHOWINPORTAL-->` after `{$closeoption}` in the `showthread_quickreply` template to display the checkbox
+   in the quick reply form.
 
 [Go up to Table of Contents](#table_of_contents)
 
