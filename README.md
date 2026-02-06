@@ -120,6 +120,62 @@ Follow the next steps in order to update your copy of this plugin.
 To display the moderation option it is required that you edit the following templates for each of
 your themes.
 
+#### MyBB 1.9
+
+1. Replace `{% if editpost.showpostoptions %}` with `{% if editpost.showpostoptions or get('ougcShowInPortal') %}` and
+   add `{{ get('ougcShowInPortal')|raw }}` before `{% if editpost.showsignature %}` in the `editpost.twig` template to
+   display the checkbox while editing threads.
+    ```twig
+                   {% if editpost.showpostoptions or get('ougcShowInPortal') %}
+                    <section class="section section--form section--has-title compose__hidden-section compose__hidden-section--options">
+                        <h2 class="title title--section">{{ lang.post_options }}</h2>
+                        <div class="section__container">
+                            <div class="row row--form field">
+                                {{ get('ougcShowInPortal')|raw }}
+                                {% if editpost.showsignature %}
+   ```
+2. Replace `{% if newreply.showpostoptions %}` with `{% if newreply.showpostoptions or get('ougcShowInPortal') %}` and
+   add `{{ get('ougcShowInPortal')|raw }}` before `{% if newreply.showsignature %}` in the `newreply.twig` template to
+   display the checkbox while creating new posts (replies).
+    ```twig
+                {% if newreply.showpostoptions or get('ougcShowInPortal') %}
+                    <section class="section section--form section--has-title compose__hidden-section compose__hidden-section--options">
+                    	<h2 class="title title--section">{{ lang.post_options }}</h2>
+                    	<div class="section__container">
+                    		<div class="row row--form field">
+                                {{ get('ougcShowInPortal')|raw }}
+                                {% if newreply.showsignature %}
+   ```
+3. Replace `{% if newthread.showpostoptions %}` with `{% if newthread.showpostoptions or get('ougcShowInPortal') %}` and
+   add `{{ get('ougcShowInPortal')|raw }}` before `{% if newthread.showsignature %}` in the `newthread.twig` template to
+   display the checkbox while creating new threads.
+    ```twig
+                {% if newthread.showpostoptions or get('ougcShowInPortal') %}
+                    <section class="section section--form section--has-title compose__hidden-section compose__hidden-section--options">
+                        <h2 class="title title--section">{{ lang.post_options }}</h2>
+                        <div class="section__container">
+                            <div class="row row--form field">
+                                {{ get('ougcShowInPortal')|raw }}
+                                {% if newthread.showsignature %}
+   ```
+4. Replace
+   `{% if (mybb.usergroup.canusesig and mybb.user.suspendsignature != 1) or forum.allowsmilies or modpermissions.canopenclosethreads or modpermissions.canstickunstickthreads %}`
+   with
+   `{% if (mybb.usergroup.canusesig and mybb.user.suspendsignature != 1) or forum.allowsmilies or modpermissions.canopenclosethreads or modpermissions.canstickunstickthreads or get('ougcShowInPortal') %}`
+   and add `{{ get('ougcShowInPortal')|raw }}` before
+   `{% if mybb.usergroup.canusesig and mybb.user.suspendsignature != 1 %}` in the `showthread.twig` template to display
+   the checkbox
+   in the quick reply form.
+    ```twig
+                    {% if (mybb.usergroup.canusesig and mybb.user.suspendsignature != 1) or forum.allowsmilies or modpermissions.canopenclosethreads or modpermissions.canstickunstickthreads or get('ougcShowInPortal') %}
+                        <input type="checkbox" class="compose__checkbox" id="show-quick-reply-options">
+                        <div class="quick-reply__options">
+                            {{ get('ougcShowInPortal')|raw }}
+                            {% if mybb.usergroup.canusesig and mybb.user.suspendsignature != 1 %}
+   ```
+
+#### MyBB 1.8
+
 1. Add `<!--OUGC_SHOWINPORTAL-->` after `{$signature}` in the `editpost_postoptions` template to display the checkbox
    while editing threads.
 2. Add `<!--OUGC_SHOWINPORTAL-->` after `{$stickoption}` in the `newreply_modoptions` template to display the checkbox

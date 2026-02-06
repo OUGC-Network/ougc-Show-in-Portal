@@ -59,7 +59,7 @@ function pluginInfo(): array
         'authorsite' => 'https://ougc.network',
         'version' => '1.8.37',
         'versioncode' => 1837,
-        'compatibility' => '1827,1828,1829,183*',
+        'compatibility' => '1827,1828,1829,183*,19*',
         'codename' => 'ougc_showinportal',
         'myalerts' => '2.1.0',
         'pl' => [

@@ -125,7 +125,9 @@ function newthread_end()
         return false;
     }
 
-    if (!isset($modoptions) || my_strpos($modoptions, '<!--OUGC_SHOWINPORTAL-->') === false) {
+    if ($mybb->version_code < 1900 && (
+            !isset($modoptions) || my_strpos($modoptions, '<!--OUGC_SHOWINPORTAL-->') === false
+        )) {
         return false;
     }
 
@@ -152,11 +154,22 @@ function newthread_end()
         $checkAttribute = ' checked="checked"';
     }
 
-    $modoptions = str_replace(
-        '<!--OUGC_SHOWINPORTAL-->',
-        eval(getTemplate($templateName)),
-        $modoptions
-    );
+    if ($mybb->version_code >= 1900) {
+        global $ougcShowInPortal;
+
+        $ougcShowInPortal = \MyBB\View\template(
+            '@ext.ougc_showinportal/' . $templateName . '.twig',
+            [
+                'isChecked' => $displayStatus,
+            ]
+        );
+    } else {
+        $modoptions = str_replace(
+            '<!--OUGC_SHOWINPORTAL-->',
+            eval(getTemplate($templateName)),
+            $modoptions
+        );
+    }
 }
 
 function showthread_end()
@@ -259,7 +272,8 @@ function portal_start()
     {
         if (!$write_query && strpos($string, "ORDER BY t.dateline DESC")) {
             $string = strtr($string, array(
-                "t.closed" => "t.fid=\'' . $forumID . '\' AND t.closed"
+                "t.closed" => "t.fid=\'' . $forumID . '\' AND t.closed",
+                "t.moved" => "t.fid=\'' . $forumID . '\' AND t.moved",
             ));
         }
         if (!$write_query && strpos($string, "OUNT(t.tid) AS thread")) {
@@ -277,7 +291,8 @@ function portal_start()
     {
         if (!$write_query && strpos($string, "ORDER BY t.dateline DESC")) {
             $string = strtr($string, array(
-                "t.closed" => "t.showinportal=\'1\' AND t.closed"
+                "t.closed" => "t.showinportal=\'1\' AND t.closed",
+                "t.moved" => "t.showinportal=\'1\' AND t.moved"
             ));
         }
         if (!$write_query && strpos($string, "OUNT(t.tid) AS thread")) {
