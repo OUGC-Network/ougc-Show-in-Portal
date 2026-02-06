@@ -127,7 +127,7 @@ function addHooks(string $namespace)
                 $priority = 10;
             }
 
-            $plugins->add_hook($hookName, $callable, $priority);
+            $plugins->add_hook($hookName, $callable, (int)$priority);
         }
     }
 }

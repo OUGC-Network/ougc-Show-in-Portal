@@ -84,13 +84,13 @@ function newthread_end()
 
     $templateName = 'newThread';
 
-    if ($plugins->current_hook === 'showthread_end') {
+    if (THIS_SCRIPT === 'showthread.php') {
         global $quickreply;
 
         $modoptions = &$quickreply;
 
         $templateName = 'quickReply';
-    } elseif ($plugins->current_hook === 'editpost_end') {
+    } elseif (THIS_SCRIPT === 'editpost.php') {
         global $postoptions;
 
         $modoptions = &$postoptions;
@@ -98,17 +98,17 @@ function newthread_end()
         $templateName = 'editPost';
 
         $inputName = 'postoptions';
-    } elseif ($plugins->current_hook === 'newthread_end') {
+    } elseif (THIS_SCRIPT === 'newthread.php') {
         global $modoptions;
 
         $forumID = $mybb->get_input('fid', MyBB::INPUT_INT);
-    } elseif ($plugins->current_hook === 'newreply_end') {
+    } elseif (THIS_SCRIPT === 'newreply.php') {
         global $modoptions;
 
         $templateName = 'newReply';
     }
 
-    if ($plugins->current_hook !== 'newthread_end') {
+    if (THIS_SCRIPT !== 'newthread.php') {
         global $thread;
 
         $forumID = (int)$thread['fid'];
@@ -118,10 +118,8 @@ function newthread_end()
         return false;
     }
 
-    if ($plugins->current_hook == 'editpost_end' && (int)$thread['firstpost'] !== $mybb->get_input(
-            'pid',
-            MYBB::INPUT_INT
-        )) {
+    if (THIS_SCRIPT === 'editpost.php' &&
+        (int)$thread['firstpost'] !== $mybb->get_input('pid', MYBB::INPUT_INT)) {
         return false;
     }
 
@@ -139,12 +137,11 @@ function newthread_end()
 
     if ($mybb->request_method == 'post') {
         if (
-            !isset($inputName) ||
             (isset($moderationOptions['showinportal']) && (int)$moderationOptions['showinportal'] === STATUS_SHOW)
         ) {
             $displayStatus = STATUS_SHOW;
         }
-    } elseif ($plugins->current_hook !== 'newthread_end') {
+    } elseif (THIS_SCRIPT !== 'newthread.php') {
         $displayStatus = (int)$thread['showinportal'];
     }
 
@@ -215,7 +212,7 @@ function datahandler_post_insert_post(PostDataHandler &$dataHandler): PostDataHa
 
         $options = $mybb->get_input('postoptions', MYBB::INPUT_ARRAY);
     } else {
-        $options = $dataHandler->data['modoptions'];
+        $options = $dataHandler->data['modoptions'] ?? [];
     }
 
     if (!isset($options['showinportal'])) {

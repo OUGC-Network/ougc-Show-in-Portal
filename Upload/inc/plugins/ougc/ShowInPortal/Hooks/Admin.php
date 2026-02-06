@@ -79,7 +79,6 @@ function admin_config_settings_change()
     loadLanguage();
 }
 
-
 // Moderator Tools
 function admin_formcontainer_end(array &$current_hook_arguments): array
 {
@@ -128,14 +127,20 @@ function admin_config_mod_tools_add_thread_tool_commit()
 
         $thread_options['showinportal'] = ($showInPortal > 3 || $showInPortal < 0 ? 0 : $showInPortal);
 
-        $var = $mybb->get_input('action') == 'add_thread_tool' ? 'new_tool' : 'update_tool';
-
-        ${$var}['threadoptions'] = $db->escape_string(serialize($thread_options));
+        if ($mybb->get_input('action') == 'add_thread_tool') {
+            $new_tool['threadoptions'] = $db->escape_string(serialize($thread_options));
+        } else {
+            $update_tool['threadoptions'] = $db->escape_string(serialize($thread_options));
+        }
 
         if ($mybb->get_input('action') == 'add_thread_tool') {
             global $tid;
 
-            $db->update_query('modtools', $new_tool, 'tid=\'' . $tid . '\'');
+            if ($mybb->get_input('action') == 'add_thread_tool') {
+                $db->update_query('modtools', $new_tool, 'tid=\'' . $tid . '\'');
+            } else {
+                $db->update_query('modtools', $update_tool, 'tid=\'' . $tid . '\'');
+            }
         }
     }
 }
